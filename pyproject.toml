@@ -3,7 +3,7 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [project]
-name = "evernote"
+name = "evernote-plus"
 version = "1.28.0"
 description = "Evernote SDK for Python"
 authors = [
@@ -32,7 +32,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/vzhd1701/evernote-sdk-python"
+Repository = "https://github.com/vzhd1701/evernote-plus"
 Homepage = "http://dev.evernote.com"
 
 [tool.poetry]
