@@ -1,0 +1,41 @@
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "evernote"
+version = "1.28.0"
+description = "Evernote SDK for Python"
+authors = [
+    { name = "Evernote Corporation", email = "api@evernote.com" }
+]
+maintainers = [
+    { name = "vzhd1701", email = "vzhd1701@gmail.com" }
+]
+readme = "README.md"
+license = "BSD"
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "thrift (>=0.21.0)",
+]
+
+[project.urls]
+Repository = "https://github.com/vzhd1701/evernote-sdk-python"
+Homepage = "http://dev.evernote.com"
+
+[tool.poetry]
+packages = [
+    { include = "evernote" },
+]
