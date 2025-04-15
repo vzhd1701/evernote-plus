@@ -1050,6 +1050,246 @@ class GetNAPAccessJWTRequest(object):
 
     def __ne__(self, other):
         return not (self == other)
+
+
+class OpenIdCredential(object):
+    """
+    Attributes:
+     - tokenPayload
+     - serviceProvider
+
+    """
+    thrift_spec: typing.Any = None
+
+
+    def __init__(self, tokenPayload: typing.Optional[str] = None, serviceProvider: typing.Optional[int] = None,):
+        self.tokenPayload: typing.Optional[str] = tokenPayload
+        self.serviceProvider: typing.Optional[int] = serviceProvider
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.tokenPayload = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I32:
+                    self.serviceProvider = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        self.validate()
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('OpenIdCredential')
+        if self.tokenPayload is not None:
+            oprot.writeFieldBegin('tokenPayload', TType.STRING, 1)
+            oprot.writeString(self.tokenPayload.encode('utf-8') if sys.version_info[0] == 2 else self.tokenPayload)
+            oprot.writeFieldEnd()
+        if self.serviceProvider is not None:
+            oprot.writeFieldBegin('serviceProvider', TType.I32, 2)
+            oprot.writeI32(self.serviceProvider)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class AuthenticationParameters(object):
+    """
+    Attributes:
+     - usernameOrEmail
+     - password
+     - ssoLoginToken
+     - consumerKey
+     - consumerSecret
+     - deviceIdentifier
+     - deviceDescription
+     - supportsTwoFactor
+     - supportsBusinessOnlyAccounts
+     - openIdCredential
+     - exchangeToken
+
+    """
+    thrift_spec: typing.Any = None
+
+
+    def __init__(self, usernameOrEmail: typing.Optional[str] = None, password: typing.Optional[str] = None, ssoLoginToken: typing.Optional[str] = None, consumerKey: typing.Optional[str] = None, consumerSecret: typing.Optional[str] = None, deviceIdentifier: typing.Optional[str] = None, deviceDescription: typing.Optional[str] = None, supportsTwoFactor: typing.Optional[bool] = None, supportsBusinessOnlyAccounts: typing.Optional[bool] = None, openIdCredential: typing.Optional[OpenIdCredential] = None, exchangeToken: typing.Optional[str] = None,):
+        self.usernameOrEmail: typing.Optional[str] = usernameOrEmail
+        self.password: typing.Optional[str] = password
+        self.ssoLoginToken: typing.Optional[str] = ssoLoginToken
+        self.consumerKey: typing.Optional[str] = consumerKey
+        self.consumerSecret: typing.Optional[str] = consumerSecret
+        self.deviceIdentifier: typing.Optional[str] = deviceIdentifier
+        self.deviceDescription: typing.Optional[str] = deviceDescription
+        self.supportsTwoFactor: typing.Optional[bool] = supportsTwoFactor
+        self.supportsBusinessOnlyAccounts: typing.Optional[bool] = supportsBusinessOnlyAccounts
+        self.openIdCredential: typing.Optional[OpenIdCredential] = openIdCredential
+        self.exchangeToken: typing.Optional[str] = exchangeToken
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.usernameOrEmail = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.password = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.ssoLoginToken = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.consumerKey = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 5:
+                if ftype == TType.STRING:
+                    self.consumerSecret = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 6:
+                if ftype == TType.STRING:
+                    self.deviceIdentifier = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 7:
+                if ftype == TType.STRING:
+                    self.deviceDescription = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 8:
+                if ftype == TType.BOOL:
+                    self.supportsTwoFactor = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 9:
+                if ftype == TType.BOOL:
+                    self.supportsBusinessOnlyAccounts = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 10:
+                if ftype == TType.STRUCT:
+                    self.openIdCredential = OpenIdCredential()
+                    self.openIdCredential.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 11:
+                if ftype == TType.STRING:
+                    self.exchangeToken = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        self.validate()
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AuthenticationParameters')
+        if self.usernameOrEmail is not None:
+            oprot.writeFieldBegin('usernameOrEmail', TType.STRING, 1)
+            oprot.writeString(self.usernameOrEmail.encode('utf-8') if sys.version_info[0] == 2 else self.usernameOrEmail)
+            oprot.writeFieldEnd()
+        if self.password is not None:
+            oprot.writeFieldBegin('password', TType.STRING, 2)
+            oprot.writeString(self.password.encode('utf-8') if sys.version_info[0] == 2 else self.password)
+            oprot.writeFieldEnd()
+        if self.ssoLoginToken is not None:
+            oprot.writeFieldBegin('ssoLoginToken', TType.STRING, 3)
+            oprot.writeString(self.ssoLoginToken.encode('utf-8') if sys.version_info[0] == 2 else self.ssoLoginToken)
+            oprot.writeFieldEnd()
+        if self.consumerKey is not None:
+            oprot.writeFieldBegin('consumerKey', TType.STRING, 4)
+            oprot.writeString(self.consumerKey.encode('utf-8') if sys.version_info[0] == 2 else self.consumerKey)
+            oprot.writeFieldEnd()
+        if self.consumerSecret is not None:
+            oprot.writeFieldBegin('consumerSecret', TType.STRING, 5)
+            oprot.writeString(self.consumerSecret.encode('utf-8') if sys.version_info[0] == 2 else self.consumerSecret)
+            oprot.writeFieldEnd()
+        if self.deviceIdentifier is not None:
+            oprot.writeFieldBegin('deviceIdentifier', TType.STRING, 6)
+            oprot.writeString(self.deviceIdentifier.encode('utf-8') if sys.version_info[0] == 2 else self.deviceIdentifier)
+            oprot.writeFieldEnd()
+        if self.deviceDescription is not None:
+            oprot.writeFieldBegin('deviceDescription', TType.STRING, 7)
+            oprot.writeString(self.deviceDescription.encode('utf-8') if sys.version_info[0] == 2 else self.deviceDescription)
+            oprot.writeFieldEnd()
+        if self.supportsTwoFactor is not None:
+            oprot.writeFieldBegin('supportsTwoFactor', TType.BOOL, 8)
+            oprot.writeBool(self.supportsTwoFactor)
+            oprot.writeFieldEnd()
+        if self.supportsBusinessOnlyAccounts is not None:
+            oprot.writeFieldBegin('supportsBusinessOnlyAccounts', TType.BOOL, 9)
+            oprot.writeBool(self.supportsBusinessOnlyAccounts)
+            oprot.writeFieldEnd()
+        if self.openIdCredential is not None:
+            oprot.writeFieldBegin('openIdCredential', TType.STRUCT, 10)
+            self.openIdCredential.write(oprot)
+            oprot.writeFieldEnd()
+        if self.exchangeToken is not None:
+            oprot.writeFieldBegin('exchangeToken', TType.STRING, 11)
+            oprot.writeString(self.exchangeToken.encode('utf-8') if sys.version_info[0] == 2 else self.exchangeToken)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
 all_structs.append(PublicUserInfo)
 PublicUserInfo.thrift_spec = (
     None,  # 0
@@ -1120,6 +1360,27 @@ all_structs.append(GetNAPAccessJWTRequest)
 GetNAPAccessJWTRequest.thrift_spec = (
     None,  # 0
     (1, TType.BOOL, 'includeBusinessFields', None, None, ),  # 1
+)
+all_structs.append(OpenIdCredential)
+OpenIdCredential.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'tokenPayload', 'UTF8', None, ),  # 1
+    (2, TType.I32, 'serviceProvider', None, None, ),  # 2
+)
+all_structs.append(AuthenticationParameters)
+AuthenticationParameters.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'usernameOrEmail', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'password', 'UTF8', None, ),  # 2
+    (3, TType.STRING, 'ssoLoginToken', 'UTF8', None, ),  # 3
+    (4, TType.STRING, 'consumerKey', 'UTF8', None, ),  # 4
+    (5, TType.STRING, 'consumerSecret', 'UTF8', None, ),  # 5
+    (6, TType.STRING, 'deviceIdentifier', 'UTF8', None, ),  # 6
+    (7, TType.STRING, 'deviceDescription', 'UTF8', None, ),  # 7
+    (8, TType.BOOL, 'supportsTwoFactor', None, None, ),  # 8
+    (9, TType.BOOL, 'supportsBusinessOnlyAccounts', None, None, ),  # 9
+    (10, TType.STRUCT, 'openIdCredential', [OpenIdCredential, None], None, ),  # 10
+    (11, TType.STRING, 'exchangeToken', 'UTF8', None, ),  # 11
 )
 fix_spec(all_structs)
 del all_structs

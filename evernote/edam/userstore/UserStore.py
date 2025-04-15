@@ -196,21 +196,13 @@ class Iface(object):
         """
         pass
 
-    def authenticateLongSessionV2(self, username: str, password: str, ssoLoginToken: str, consumerKey: str, consumerSecret: str, deviceIdentifier: str, deviceDescription: str, supportsTwoFactor: bool, supportsBusinessOnlyAccounts: bool) -> AuthenticationResult:
+    def authenticateLongSessionV2(self, authParams: AuthenticationParameters) -> AuthenticationResult:
         """
         Used to be the main username/password login endpoint for the desktop app.
         Still useful, but only for Yinxiang.
 
         Parameters:
-         - username
-         - password
-         - ssoLoginToken
-         - consumerKey
-         - consumerSecret
-         - deviceIdentifier
-         - deviceDescription
-         - supportsTwoFactor
-         - supportsBusinessOnlyAccounts
+         - authParams
 
         """
         pass
@@ -855,38 +847,22 @@ class Client(Iface):
             raise result.systemException
         raise TApplicationException(TApplicationException.MISSING_RESULT, "authenticateLongSession failed: unknown result")
 
-    def authenticateLongSessionV2(self, username: str, password: str, ssoLoginToken: str, consumerKey: str, consumerSecret: str, deviceIdentifier: str, deviceDescription: str, supportsTwoFactor: bool, supportsBusinessOnlyAccounts: bool) -> AuthenticationResult:
+    def authenticateLongSessionV2(self, authParams: AuthenticationParameters) -> AuthenticationResult:
         """
         Used to be the main username/password login endpoint for the desktop app.
         Still useful, but only for Yinxiang.
 
         Parameters:
-         - username
-         - password
-         - ssoLoginToken
-         - consumerKey
-         - consumerSecret
-         - deviceIdentifier
-         - deviceDescription
-         - supportsTwoFactor
-         - supportsBusinessOnlyAccounts
+         - authParams
 
         """
-        self.send_authenticateLongSessionV2(username, password, ssoLoginToken, consumerKey, consumerSecret, deviceIdentifier, deviceDescription, supportsTwoFactor, supportsBusinessOnlyAccounts)
+        self.send_authenticateLongSessionV2(authParams)
         return self.recv_authenticateLongSessionV2()
 
-    def send_authenticateLongSessionV2(self, username: str, password: str, ssoLoginToken: str, consumerKey: str, consumerSecret: str, deviceIdentifier: str, deviceDescription: str, supportsTwoFactor: bool, supportsBusinessOnlyAccounts: bool):
+    def send_authenticateLongSessionV2(self, authParams: AuthenticationParameters):
         self._oprot.writeMessageBegin('authenticateLongSessionV2', TMessageType.CALL, self._seqid)
         args = authenticateLongSessionV2_args()
-        args.username = username
-        args.password = password
-        args.ssoLoginToken = ssoLoginToken
-        args.consumerKey = consumerKey
-        args.consumerSecret = consumerSecret
-        args.deviceIdentifier = deviceIdentifier
-        args.deviceDescription = deviceDescription
-        args.supportsTwoFactor = supportsTwoFactor
-        args.supportsBusinessOnlyAccounts = supportsBusinessOnlyAccounts
+        args.authParams = authParams
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -1808,7 +1784,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = authenticateLongSessionV2_result()
         try:
-            result.success = self._handler.authenticateLongSessionV2(args.username, args.password, args.ssoLoginToken, args.consumerKey, args.consumerSecret, args.deviceIdentifier, args.deviceDescription, args.supportsTwoFactor, args.supportsBusinessOnlyAccounts)
+            result.success = self._handler.authenticateLongSessionV2(args.authParams)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -2752,30 +2728,14 @@ authenticateLongSession_result.thrift_spec = (
 class authenticateLongSessionV2_args(object):
     """
     Attributes:
-     - username
-     - password
-     - ssoLoginToken
-     - consumerKey
-     - consumerSecret
-     - deviceIdentifier
-     - deviceDescription
-     - supportsTwoFactor
-     - supportsBusinessOnlyAccounts
+     - authParams
 
     """
     thrift_spec: typing.Any = None
 
 
-    def __init__(self, username: typing.Optional[str] = None, password: typing.Optional[str] = None, ssoLoginToken: typing.Optional[str] = None, consumerKey: typing.Optional[str] = None, consumerSecret: typing.Optional[str] = None, deviceIdentifier: typing.Optional[str] = None, deviceDescription: typing.Optional[str] = None, supportsTwoFactor: typing.Optional[bool] = None, supportsBusinessOnlyAccounts: typing.Optional[bool] = None,):
-        self.username: typing.Optional[str] = username
-        self.password: typing.Optional[str] = password
-        self.ssoLoginToken: typing.Optional[str] = ssoLoginToken
-        self.consumerKey: typing.Optional[str] = consumerKey
-        self.consumerSecret: typing.Optional[str] = consumerSecret
-        self.deviceIdentifier: typing.Optional[str] = deviceIdentifier
-        self.deviceDescription: typing.Optional[str] = deviceDescription
-        self.supportsTwoFactor: typing.Optional[bool] = supportsTwoFactor
-        self.supportsBusinessOnlyAccounts: typing.Optional[bool] = supportsBusinessOnlyAccounts
+    def __init__(self, authParams: typing.Optional[AuthenticationParameters] = None,):
+        self.authParams: typing.Optional[AuthenticationParameters] = authParams
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2787,48 +2747,9 @@ class authenticateLongSessionV2_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.username = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.password = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.ssoLoginToken = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.STRING:
-                    self.consumerKey = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 5:
-                if ftype == TType.STRING:
-                    self.consumerSecret = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 6:
-                if ftype == TType.STRING:
-                    self.deviceIdentifier = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 7:
-                if ftype == TType.STRING:
-                    self.deviceDescription = iprot.readString().decode('utf-8', errors='replace') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 8:
-                if ftype == TType.BOOL:
-                    self.supportsTwoFactor = iprot.readBool()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 9:
-                if ftype == TType.BOOL:
-                    self.supportsBusinessOnlyAccounts = iprot.readBool()
+                if ftype == TType.STRUCT:
+                    self.authParams = AuthenticationParameters()
+                    self.authParams.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -2842,41 +2763,9 @@ class authenticateLongSessionV2_args(object):
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
         oprot.writeStructBegin('authenticateLongSessionV2_args')
-        if self.username is not None:
-            oprot.writeFieldBegin('username', TType.STRING, 1)
-            oprot.writeString(self.username.encode('utf-8') if sys.version_info[0] == 2 else self.username)
-            oprot.writeFieldEnd()
-        if self.password is not None:
-            oprot.writeFieldBegin('password', TType.STRING, 2)
-            oprot.writeString(self.password.encode('utf-8') if sys.version_info[0] == 2 else self.password)
-            oprot.writeFieldEnd()
-        if self.ssoLoginToken is not None:
-            oprot.writeFieldBegin('ssoLoginToken', TType.STRING, 3)
-            oprot.writeString(self.ssoLoginToken.encode('utf-8') if sys.version_info[0] == 2 else self.ssoLoginToken)
-            oprot.writeFieldEnd()
-        if self.consumerKey is not None:
-            oprot.writeFieldBegin('consumerKey', TType.STRING, 4)
-            oprot.writeString(self.consumerKey.encode('utf-8') if sys.version_info[0] == 2 else self.consumerKey)
-            oprot.writeFieldEnd()
-        if self.consumerSecret is not None:
-            oprot.writeFieldBegin('consumerSecret', TType.STRING, 5)
-            oprot.writeString(self.consumerSecret.encode('utf-8') if sys.version_info[0] == 2 else self.consumerSecret)
-            oprot.writeFieldEnd()
-        if self.deviceIdentifier is not None:
-            oprot.writeFieldBegin('deviceIdentifier', TType.STRING, 6)
-            oprot.writeString(self.deviceIdentifier.encode('utf-8') if sys.version_info[0] == 2 else self.deviceIdentifier)
-            oprot.writeFieldEnd()
-        if self.deviceDescription is not None:
-            oprot.writeFieldBegin('deviceDescription', TType.STRING, 7)
-            oprot.writeString(self.deviceDescription.encode('utf-8') if sys.version_info[0] == 2 else self.deviceDescription)
-            oprot.writeFieldEnd()
-        if self.supportsTwoFactor is not None:
-            oprot.writeFieldBegin('supportsTwoFactor', TType.BOOL, 8)
-            oprot.writeBool(self.supportsTwoFactor)
-            oprot.writeFieldEnd()
-        if self.supportsBusinessOnlyAccounts is not None:
-            oprot.writeFieldBegin('supportsBusinessOnlyAccounts', TType.BOOL, 9)
-            oprot.writeBool(self.supportsBusinessOnlyAccounts)
+        if self.authParams is not None:
+            oprot.writeFieldBegin('authParams', TType.STRUCT, 1)
+            self.authParams.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2897,15 +2786,7 @@ class authenticateLongSessionV2_args(object):
 all_structs.append(authenticateLongSessionV2_args)
 authenticateLongSessionV2_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'username', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'password', 'UTF8', None, ),  # 2
-    (3, TType.STRING, 'ssoLoginToken', 'UTF8', None, ),  # 3
-    (4, TType.STRING, 'consumerKey', 'UTF8', None, ),  # 4
-    (5, TType.STRING, 'consumerSecret', 'UTF8', None, ),  # 5
-    (6, TType.STRING, 'deviceIdentifier', 'UTF8', None, ),  # 6
-    (7, TType.STRING, 'deviceDescription', 'UTF8', None, ),  # 7
-    (8, TType.BOOL, 'supportsTwoFactor', None, None, ),  # 8
-    (9, TType.BOOL, 'supportsBusinessOnlyAccounts', None, None, ),  # 9
+    (1, TType.STRUCT, 'authParams', [AuthenticationParameters, None], None, ),  # 1
 )
 
 
