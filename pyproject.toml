@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "evernote-plus"
-version = "1.28.1-dev0"
+version = "1.28.1-dev1"
 description = "Evernote SDK for Python"
 authors = [
     { name = "Evernote Corporation", email = "api@evernote.com" }
