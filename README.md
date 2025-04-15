@@ -1,5 +1,7 @@
-Evernote SDK for Python
-============================================
+# Evernote SDK for Python
+
+[![PyPI version](https://img.shields.io/pypi/v/evernote-plus?label=version)](https://pypi.python.org/pypi/evernote-plus)
+[![Python Version](https://img.shields.io/pypi/pyversions/evernote-plus.svg)](https://pypi.org/project/evernote-plus/)
 
 Evernote API version 1.28
 
