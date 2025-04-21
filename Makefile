@@ -19,6 +19,15 @@ build:
 update-submodule:
 	git submodule update --remote --merge
 
+bump-show:
+	bump-my-version show-bump
+
+bump-dev-dry:
+	bump-my-version bump pre_n --dry-run -v --allow-dirty
+
+bump-dev:
+	bump-my-version bump pre_n -v
+
 clean:
 	rm -rf dist/
 	rm -rf build/
