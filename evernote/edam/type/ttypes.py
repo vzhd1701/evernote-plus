@@ -42,12 +42,23 @@ class ServiceLevel(IntEnum):
     This enumeration defines the possible tiers of service that a user may have. A
     ServiceLevel of BUSINESS signifies a business-only account, which can never be any
     other ServiceLevel.
+    UNKNOWN - for Yinxiang
+    10-40   - from en-thrift-internal
 
     """
     BASIC = 1
     PLUS = 2
     PREMIUM = 3
     BUSINESS = 4
+    UNKNOWN_5 = 5
+    UNKNOWN_6 = 6
+    UNKNOWN_7 = 7
+    UNKNOWN_8 = 8
+    UNKNOWN_9 = 9
+    FREE = 10
+    PERSONAL = 20
+    PROFESSIONAL = 30
+    TEAMS = 40
 
 
 
